@@ -59,20 +59,16 @@ class TaskManager extends AbstractTaskManager{
 
     public function getAllTasks()
     {
-        $stmt = $this->dbh->prepare("SELECT * FROM tache");
+        $sql = "SELECT * FROM tache";
+        $stmt = $this->dbh->prepare($sql);
         $stmt->execute();
-
-        $tasks = array();
-
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $task = new TaskManager();
-            $task->setId($row['id']);
-            $task->setName($row['tache']);
-            $tasks[] = $task;
-        }
-
-        return $tasks;
-    }
+        $dbh = $this->dbh;
+        $tasks = $stmt->fetchAll(PDO::FETCH_FUNC, function ($id, $name) {
+            $task = new TaskManager($this->dbh);
+            $task->setId($id);
+            $task->setName($name);
+            return $task;
+        });
     
-}
+}}
 ?>
