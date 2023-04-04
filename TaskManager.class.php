@@ -69,6 +69,7 @@ class TaskManager extends AbstractTaskManager{
             $task->setName($name);
             return $task;
         });
+        return $tasks;
     
 }}
 ?>

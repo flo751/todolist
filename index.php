@@ -9,8 +9,8 @@
     $taskManager = new TaskManager();
 
     if (isset($_POST['creer_tache'])) {
-        $task = $_POST['creer_tache'];
-        $taskManager->addTask($task);
+        $creat = $_POST['creer_tache'];
+        $taskManager->addTask($creat);
     }
     
     if (isset($_GET['id'])) {
@@ -19,6 +19,8 @@
     }
     
     $tasks = $taskManager->getAllTasks();
+
+    error_log("tasks : ".print_r($tasks, 1));
 ?>
 
 
@@ -60,9 +62,7 @@
             <td><?php echo  $task->getName(); ?></td>
             <td>&emsp;&emsp;<a href="?id=<?php echo $task->getId(); ?>">x</a></td>
         </tr>
-        <?php
-    endforeach
-    ?>
+        <?php endforeach; ?>
 </table>
 </body>
 </html>
